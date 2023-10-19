@@ -1,6 +1,6 @@
-import { AnyProfile, Mapper } from '@/types'
+import { Profile, Mapper } from '@/types'
 
-export function createMapper<T extends AnyProfile>(profiles: T[]): Mapper<T> {
+export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
 
   const mapper: Mapper<T> = {
     map: (sourceKey, source, destinationKey) => {
