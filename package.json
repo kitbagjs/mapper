@@ -1,0 +1,36 @@
+{
+  "name": "@stackoverfloweth/mapper",
+  "version": "0.0.1",
+  "description": "Simple and versatile mapping utility for Typescript.",
+  "author": "Evan Sutherland",
+  "bugs": {
+    "url": "https://github.com/stackoverfloweth/mapper/issues"
+  },
+  "homepage": "https://github.com/stackoverfloweth/mapper#readme",
+  "main": "./dist/mapper.umd.cjs",
+  "module": "./dist/mapper.mjs",
+  "types": "./dist/src/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/mapper.mjs",
+      "require": "./dist/mapper.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:watch": "tsc && vite build --watch",
+    "dev": "vite",
+    "lint": "eslint ./"
+  },
+  "devDependencies": {
+    "@prefecthq/eslint-config": "1.0.31",
+    "@types/node": "^20.8.6",
+    "eslint": "^8.49.0",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.8",
+    "vite-plugin-dts": "^3.6.0"
+  }
+}

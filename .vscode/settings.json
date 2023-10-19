@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": false,
+  "javascript.format.enable": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "cSpell.words": [
+    "camelcase",
+    "composables",
+    "esbuild",
+    "iife",
+    "prefecthq",
+    "stackoverfloweth"
+  ],
+}
