@@ -25,6 +25,6 @@
     }
   },
   "rules": {
-    "indent": "off",
+    "indent": "off"
   }
 }

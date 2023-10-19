@@ -23,7 +23,7 @@
     "build": "tsc && vite build",
     "build:watch": "tsc && vite build --watch",
     "dev": "vite",
-    "lint": "eslint ./"
+    "lint": "eslint ./src"
   },
   "devDependencies": {
     "@prefecthq/eslint-config": "1.0.31",
