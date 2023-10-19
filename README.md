@@ -27,6 +27,7 @@ Note the presence of the `mapper` argument serves as a utility the developer to 
 Here are a couple simple examples of `Profile` objects
 
 ```ts
+// example using the Profile type with generics
 export const numberToString: Profile<'number', number, 'string', string> = {
   sourceKey: 'number',
   destinationKey: 'string',
@@ -35,13 +36,14 @@ export const numberToString: Profile<'number', number, 'string', string> = {
   },
 }
 
-export const numberToDate: Profile<'number', number, 'Date', Date> = {
+// example using the profile type with as const satisfies
+export const numberToDate = {
   sourceKey: 'number',
   destinationKey: 'Date',
   map: (source) => {
     return new Date(source)
   },
-}
+} as const satisfies Profile
 ```
 
 The mapper will use the keys you define to provide type safety when calling map.
