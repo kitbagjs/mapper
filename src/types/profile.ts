@@ -5,10 +5,11 @@ type AnyMapper = {
   mapMany: (sourceKey: any, sourceArray: any[], destinationKey: any) => any[],
 }
 
-export type Profile<TSource = any, TDestination = any> = {
-  sourceKey: string,
-  destinationKey: string,
-  map: (source: TSource, mapper: AnyMapper) => TDestination
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type Profile<TSourceKey = string, TSource = any, TDestinationKey = string, TDestination = any> = {
+  sourceKey: TSourceKey,
+  destinationKey: TDestinationKey,
+  map: (source: TSource, mapper: AnyMapper) => TDestination,
 }
 
 export type ProfileSource<TProfile extends Profile> = Parameters<TProfile['map']>[0]
