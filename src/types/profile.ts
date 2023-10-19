@@ -1,6 +1,9 @@
-import { Mapper } from '@/types/mapper'
-
-type AnyMapper = Mapper<{ sourceKey: string, destinationKey: string, map: (source: unknown) => unknown }>
+type AnyMapper = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  map: (sourceKey: any, source: any, destinationKey: any) => any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapMany: (sourceKey: any, sourceArray: any[], destinationKey: any) => any[],
+}
 
 export interface Profile<TSourceKey extends string, TSource, TDestinationKey extends string, TDestination> {
   sourceKey: TSourceKey,
