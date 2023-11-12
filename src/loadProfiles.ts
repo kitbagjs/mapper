@@ -1,8 +1,23 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MaybeImport = () => Record<PropertyKey, any>
+type Imported = Record<PropertyKey, any>
+type MaybeImport = Imported | (() => Imported)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyFunction = ((...args: any[]) => any)
+type RecordValue<T> = T extends Record<string, infer TValue> ? TValue : never
 
-export function loadProfiles<TImported extends MaybeImport, TReturns = ReturnType<TImported> extends Record<string, infer TValue> ? TValue : never>(load: TImported): TReturns[] {
-  const value = load()
+function toValue(maybeImport: MaybeImport): Imported {
+  if (typeof maybeImport === 'function') {
+    return maybeImport()
+  }
+
+  return maybeImport
+}
+
+export function loadProfiles<
+  TImported extends MaybeImport,
+  TReturns = TImported extends AnyFunction ? RecordValue<ReturnType<TImported>> : RecordValue<TImported>
+>(load: TImported): TReturns[] {
+  const value = toValue(load)
   const maybeProfiles = Object.values(value)
 
   if (!maybeProfiles.every(isValidProfile)) {
