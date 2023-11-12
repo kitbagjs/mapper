@@ -1,6 +1,6 @@
-import { AnyProfile, Mapper } from '@/types'
+import { Mapper, Profile } from '@/types'
 
-export function createMapper<T extends AnyProfile>(profiles: T[]): Mapper<T> {
+export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
 
   const mapper: Mapper<T> = {
     map: (sourceKey, source, destinationKey) => {
@@ -10,7 +10,7 @@ export function createMapper<T extends AnyProfile>(profiles: T[]): Mapper<T> {
         throw 'Mapping profile not found'
       }
 
-      return profile.map(source, mapper)
+      return profile.map(source)
     },
     mapMany: (sourceKey, sourceArray, destinationKey) => {
       return sourceArray.map(source => mapper.map(sourceKey, source, destinationKey))

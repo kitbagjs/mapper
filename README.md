@@ -16,32 +16,24 @@ mapper.map('source-key', source, 'destination-key')
 
 Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique, beyond that the choice is irrelevant to the function of the mapper.
 
-The heart of the profile is the `map` function, which has the following contract
-
-```ts
-map: (source: TSource, mapper: Mapper) => TDestination
-```
-
-Note the presence of the `mapper` argument serves as a utility the developer to nest profiles (read more about nesting profiles below).
-
 Here are a couple simple examples of `Profile` objects
 
 ```ts
-export const numberToString: Profile<'number', number, 'string', string> = {
+export const numberToString = {
   sourceKey: 'number',
   destinationKey: 'string',
   map: (source) => {
     return source.toString()
   },
-}
+} as const satisfies Profile
 
-export const numberToDate: Profile<'number', number, 'Date', Date> = {
+export const numberToDate = {
   sourceKey: 'number',
   destinationKey: 'Date',
   map: (source) => {
     return new Date(source)
   },
-}
+} as const satisfies Profile
 ```
 
 The mapper will use the keys you define to provide type safety when calling map.
