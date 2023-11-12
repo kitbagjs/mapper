@@ -1,6 +1,6 @@
-import { AnyProfile, ExtractSourceKeys, ExtractSources, ExtractDestinationKeys, ExtractDestinations } from '@/types/profile'
+import { ExtractSourceKeys, ExtractSources, ExtractDestinationKeys, ExtractDestinations, Profile } from '@/types/profile'
 
-export type Mapper<T extends AnyProfile> = {
+export type Mapper<T extends Profile> = {
   map: <
     TSourceKey extends ExtractSourceKeys<T>,
     TSource extends ExtractSources<T, TSourceKey>,
