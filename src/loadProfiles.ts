@@ -1,10 +1,8 @@
-import { MaybePromise } from '@/types'
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type MaybeImport = () => MaybePromise<Record<PropertyKey, any>>
+type MaybeImport = () => Record<PropertyKey, any>
 
-export async function loadProfiles<TImported extends MaybeImport, TReturns = Awaited<ReturnType<TImported>> extends Record<string, infer TValue> ? TValue : never>(load: TImported): Promise<TReturns[]> {
-  const value = await load()
+export function loadProfiles<TImported extends MaybeImport, TReturns = ReturnType<TImported> extends Record<string, infer TValue> ? TValue : never>(load: TImported): TReturns[] {
+  const value = load()
   const maybeProfiles = Object.values(value)
 
   if (!maybeProfiles.every(isValidProfile)) {

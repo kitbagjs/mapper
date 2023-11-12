@@ -1,6 +1,6 @@
 {
   "name": "@stackoverfloweth/mapper",
-  "version": "0.0.1",
+  "version": "0.0.4",
   "description": "Simple and versatile mapping utility for Typescript.",
   "author": "Evan Sutherland",
   "bugs": {
