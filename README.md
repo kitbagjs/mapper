@@ -73,13 +73,13 @@ const mapper = createMapper(profiles)
 Because `TSource` and `TDestination` are not constrained, you can always define a profile that expects an array.
 
 ```ts
-export const numbersArrayToNumbersSet: Profile<'array', unknown[], 'Set', Set<unknown>> = {
+export const numbersArrayToNumbersSet = {
   sourceKey: 'array',
   destinationKey: 'Set',
   map: (source) => {
     return new Set(source)
   },
-}
+} as const satisfies Profile
 ```
 
 However, if your goal is use the same mapping profile over an array of sources you can use either
@@ -143,49 +143,17 @@ export type ItemResponse = {
 There are a couple opportunities to use the mapper from within the order profile. Both the `ObjectId` from mongodb and `Item` mapping logic is likely already encapsulated by another profile. This is where the `mapper` argument provided to the profile `map` method comes in handy.
 
 ```ts
-export const orderResponseToOrder: Profile<'OrderResponse', OrderResponse, 'Order', Order> = {
+export const orderResponseToOrder = {
   sourceKey: 'OrderResponse',
   destinationKey: 'Order',
-  map: (source, mapper) => {
+  map: (source: OrderResponse): Order => {
     return {
       orderId: mapper.map('ObjectId', source._id, 'string'),
       total: number,
       items: mapper.map('ItemResponse', source.items ?? [], 'Item'),
     }
   },
-}
-```
-
-However, there's a catch. Because the type safety is controlled by your application supplying the profiles to `createMapper`, the library itself cannot have an accurate type for `mapper` here. The type provided by default is `AnyMapper`, which unlike the mapper you get back from `createMapper` will have no constraints on keys or types.
-
-The solution to this is to take advantage of ts duck typing by defining your own type for `MapFunction` that has narrowed types but still satisfies the requirement of `Profile.map`.
-
-```ts
-
-export const mapper = createMapper(profiles)
-export type Mapper = typeof mapper
-
-export type MapFunction<TSource, TDestination> = (source: TSource, mapper: Mapper) => TDestination
-```
-
-Now you can rewrite your order profile with type safety
-
-```ts
-import { MapFunction } from 'src/services'
-
-const map: MapFunction<OrderResponse, Order> = (source, mapper) => {
-  return {
-    orderId: mapper.map('ObjectId', source._id, 'string'),
-    total: number,
-    items: mapper.map('ItemResponse', source.items ?? [], 'Item'),
-  }
-}
-
-export const orderResponseToOrder: Profile<'OrderResponse', OrderResponse, 'Order', Order> = {
-  sourceKey: 'OrderResponse',
-  destinationKey: 'Order',
-  map,
-}
+} as const satisfies Profile
 ```
 
 ## Notes
