@@ -1,4 +1,12 @@
-# mapper
+# @kitbag/mapper
+
+A simple and versatile mapping utility for Typescript.
+
+## Get Started
+
+```bash
+npm i --save @kitbag/mapper
+```
 
 ## Basic Setup
 
