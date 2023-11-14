@@ -1,12 +1,12 @@
 {
-  "name": "@stackoverfloweth/mapper",
-  "version": "0.0.4",
+  "name": "@kitbag/mapper",
+  "version": "0.0.1",
   "description": "Simple and versatile mapping utility for Typescript.",
   "author": "Evan Sutherland",
   "bugs": {
-    "url": "https://github.com/stackoverfloweth/mapper/issues"
+    "url": "https://github.com/kitbagjs/mapper/issues"
   },
-  "homepage": "https://github.com/stackoverfloweth/mapper#readme",
+  "homepage": "https://github.com/kitbagjs/mapper#readme",
   "main": "./dist/mapper.umd.cjs",
   "module": "./dist/mapper.mjs",
   "types": "./dist/src/index.d.ts",

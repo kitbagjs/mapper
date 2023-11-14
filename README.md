@@ -22,7 +22,7 @@ Here are a couple simple examples of `Profile` objects
 export const numberToString = {
   sourceKey: 'number',
   destinationKey: 'string',
-  map: (source) => {
+  map: (source: number): string => {
     return source.toString()
   },
 } as const satisfies Profile
@@ -30,7 +30,7 @@ export const numberToString = {
 export const numberToDate = {
   sourceKey: 'number',
   destinationKey: 'Date',
-  map: (source) => {
+  map: (source: number): Date => {
     return new Date(source)
   },
 } as const satisfies Profile
@@ -63,7 +63,10 @@ This library provides a useful method for automatically loading profiles. If you
 ```
 
 ```ts
-const profiles = await loadProfiles(() => import('src/maps'))
+import { createMapper, loadProfiles } from '@stackoverfloweth/mapper'
+import * as maybeProfiles from '@/maps'
+
+const profiles = loadProfiles(maybeProfiles)
 
 const mapper = createMapper(profiles)
 ```
@@ -76,8 +79,8 @@ Because `TSource` and `TDestination` are not constrained, you can always define 
 export const numbersArrayToNumbersSet = {
   sourceKey: 'array',
   destinationKey: 'Set',
-  map: (source) => {
-    return new Set(source)
+  map<T>: (source: T[]): Set<T> => {
+    return new Set<T>(source)
   },
 } as const satisfies Profile
 ```
@@ -140,7 +143,7 @@ export type ItemResponse = {
 }
 ```
 
-There are a couple opportunities to use the mapper from within the order profile. Both the `ObjectId` from mongodb and `Item` mapping logic is likely already encapsulated by another profile. This is where the `mapper` argument provided to the profile `map` method comes in handy.
+There are a couple opportunities to use the mapper from within the order profile. Both the `ObjectId` from mongodb and `Item` mapping logic is likely already encapsulated by another profile. The same `mapper` can be imported and used within a Profile.
 
 ```ts
 export const orderResponseToOrder = {
@@ -158,4 +161,36 @@ export const orderResponseToOrder = {
 
 ## Notes
 
-- What you chose to name the profile doesn't matter to the mapper. In these examples I used the pattern `${sourceKey}To${destinationKey}` but this key is not currently used by `loadProfiles()` in any way.
+### Profile name
+
+What you chose to name the profile doesn't matter to the mapper. In these examples I used the pattern `${sourceKey}To${destinationKey}` but this key is not currently used by `loadProfiles()` in any way.
+
+### Implicit `any` TS error
+
+If you're seeing the following error within your profile or within the file that calls `createMapper`
+
+> '...' implicitly has type 'any' because it does not have a type annotation and is referenced directly or indirectly in its own initializer.
+
+this is likely because you're missing the type annotations on your `map` method within a profile.
+
+```ts
+export const numberToString = {
+  sourceKey: 'number',
+  destinationKey: 'string',
+  map: (source) => {
+    return source.toString()
+  },
+} as const satisfies Profile
+```
+
+adding `number` type for `source` and return type of `string` resolves the error.
+
+```ts
+export const numberToString = {
+  sourceKey: 'number',
+  destinationKey: 'string',
+  map: (source: number): string => {
+    return source.toString()
+  },
+} as const satisfies Profile
+```
