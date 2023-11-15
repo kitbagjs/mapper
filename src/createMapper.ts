@@ -5,7 +5,7 @@ export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
 
   const profileMap = buildProfilesMap(profiles)
 
-  function findProfile(sourceKey: T['sourceKey'], destinationKey: T['destinationKey']): Profile['map'] {
+  function findProfile(sourceKey: T['sourceKey'], destinationKey: T['destinationKey']): Profile {
     const key: ProfileKey<T> = `${sourceKey}-${destinationKey}`
     const profile = profileMap.get(key)
 
@@ -20,23 +20,23 @@ export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
     map: (sourceKey, source, destinationKey) => {
       const profile = findProfile(sourceKey, destinationKey)
 
-      return profile(source)
+      return profile.map(source)
     },
     mapMany: (sourceKey, sourceArray, destinationKey) => {
       const profile = findProfile(sourceKey, destinationKey)
 
-      return sourceArray.map(source => profile(source))
+      return sourceArray.map(source => profile.map(source))
     },
   }
 
   return mapper
 }
 
-function buildProfilesMap<T extends Profile>(profiles: T[]): Map<ProfileKey<T>, Profile['map']> {
-  const map: Map<ProfileKey<T>, Profile['map']> = new Map()
+function buildProfilesMap<T extends Profile>(profiles: T[]): Map<ProfileKey<T>, Profile> {
+  const map: Map<ProfileKey<T>, Profile> = new Map()
 
   for (const profile of profiles) {
-    map.set(`${profile.sourceKey}-${profile.destinationKey}`, profile.map)
+    map.set(`${profile.sourceKey}-${profile.destinationKey}`, profile)
   }
 
   return map
