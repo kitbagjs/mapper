@@ -5,19 +5,27 @@ export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
 
   const mappers = buildProfilesMap(profiles)
 
+  function getMapper(sourceKey: string, destinationKey: string): Profile['map'] {
+    const key: ProfileKey = `${sourceKey}-${destinationKey}`
+    const mapper = mappers.get(key)
+
+    if (!mapper) {
+      throw new ProfileNotFoundError(sourceKey, destinationKey)
+    }
+
+    return mapper
+  }
+
   const mapper: Mapper<T> = {
     map: (sourceKey, source, destinationKey) => {
-      const key: ProfileKey = `${sourceKey}-${destinationKey}`
-      const mapper = mappers.get(key)
-
-      if (!mapper) {
-        throw new ProfileNotFoundError(sourceKey, destinationKey)
-      }
+      const mapper = getMapper(sourceKey, destinationKey)
 
       return mapper(source)
     },
     mapMany: (sourceKey, sourceArray, destinationKey) => {
-      return sourceArray.map(source => mapper.map(sourceKey, source, destinationKey))
+      const mapper = getMapper(sourceKey, destinationKey)
+
+      return sourceArray.map(source => mapper(source))
     },
   }
 
