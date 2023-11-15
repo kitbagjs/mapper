@@ -9,7 +9,6 @@ const stringToBoolean = {
   map: (source: string): boolean => Boolean(source),
 } as const satisfies Profile
 
-
 const mapper = createMapper([stringToBoolean])
 
 test('map returns the correct value', () => {
