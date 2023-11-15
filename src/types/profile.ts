@@ -5,7 +5,7 @@ export interface Profile<TSourceKey extends string = string, TSource = any, TDes
   map: (source: TSource) => TDestination,
 }
 
-export type ProfileKey = `${string}-${string}`
+export type ProfileKey<T extends Profile> = `${T['sourceKey']}-${T['destinationKey']}`
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractSourceKeys<TProfile> = TProfile extends Profile<infer TSourceKey, any, any> ? TSourceKey : never
