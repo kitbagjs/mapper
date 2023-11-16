@@ -24,7 +24,8 @@
     "build:watch": "tsc && vite build --watch",
     "dev": "vite",
     "lint": "eslint ./src",
-    "test": "vitest"
+    "test": "vitest",
+    "types": "tsc --noEmit"
   },
   "devDependencies": {
     "@prefecthq/eslint-config": "1.0.31",
