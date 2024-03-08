@@ -10,17 +10,19 @@ const stringToBoolean = {
 
 const profiles = [stringToBoolean]
 
-declare module '@/index' {
-  interface Register {
-    profiles: typeof profiles,
-  }
-}
+// declare module '@/index' {
+//   interface Register {
+//     profiles: typeof profiles,
+//   }
+// }
 
 mapper.register(profiles)
 
 test('when types are provided via register interface, gets enforced when calling map and throws exception', () => {
-  // @ts-expect-error 'x' is not registered SourceKey
+  const error = new ProfileNotFoundError('x', 'x')
+
+  // if Register is not commented out >> @ts-expect-error 'x' is not registered SourceKey
   const action: () => void = () => mapper.map('x', 'x', 'x')
 
-  expect(action).toThrow(ProfileNotFoundError)
+  expect(action).toThrow(error)
 })

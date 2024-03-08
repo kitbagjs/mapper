@@ -1,6 +1,6 @@
 import { expect, test } from 'vitest'
 import mapper from '@/index'
-import { ProfileNotFoundError, Profile } from '@/types'
+import { Profile } from '@/types'
 
 const stringToBoolean = {
   sourceKey: 'string',
@@ -20,10 +20,4 @@ test('mapMany returns the correct value', () => {
   const value = mapper.mapMany('string', ['true'], 'boolean')
 
   expect(value).toMatchObject([true])
-})
-
-test('throws error if profile is not found', () => {
-  const error = new ProfileNotFoundError('x', 'x')
-
-  expect(() => mapper.map('x', 'x', 'x')).toThrowError(error)
 })
