@@ -4,6 +4,7 @@ import { Mapper, RegisteredProfiles } from '@/types'
 export * from './createMapper'
 export * from './loadProfiles'
 export * from './types'
-export * from './profileNotFoundError'
 
-export const mapper: Mapper<RegisteredProfiles> = createMapper()
+const mapper: Mapper<RegisteredProfiles> = createMapper()
+
+export default mapper
