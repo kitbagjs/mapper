@@ -1,5 +1,5 @@
 import { ProfileNotFoundError } from '@/profileNotFoundError'
-import { Mapper, Profile, ProfileKey } from '@/types'
+import { GenericMapper, Mapper, Profile, ProfileKey } from '@/types'
 
 export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
 
@@ -16,14 +16,16 @@ export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
     return profile
   }
 
-  const mapper: Mapper<T> = {
+  const mapper: GenericMapper = {
     map: (sourceKey, source, destinationKey) => {
-      const profile = getProfile(sourceKey, destinationKey)
+      const { map } = getProfile(sourceKey, destinationKey)
+      const profile = { map: map.bind(mapper) }
 
       return profile.map(source)
     },
     mapMany: (sourceKey, sourceArray, destinationKey) => {
-      const profile = getProfile(sourceKey, destinationKey)
+      const { map } = getProfile(sourceKey, destinationKey)
+      const profile = { map: map.bind(mapper) }
 
       return sourceArray.map(source => profile.map(source))
     },

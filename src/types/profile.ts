@@ -1,8 +1,17 @@
+import { GenericMapper, RegisteredMapper } from '@/types/mapper'
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface Profile<TSourceKey extends string = string, TSource = any, TDestinationKey extends string = string, TDestination = any> {
   sourceKey: TSourceKey,
   destinationKey: TDestinationKey,
-  map: (source: TSource) => TDestination,
+  map: (this: RegisteredMapper, source: TSource) => TDestination,
+}
+
+export interface GenericProfile {
+  sourceKey: string,
+  destinationKey: string,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  map: (this: GenericMapper, source: any) => any,
 }
 
 export type ProfileKey<T extends Profile> = `${T['sourceKey']}-${T['destinationKey']}`

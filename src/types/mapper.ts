@@ -1,4 +1,4 @@
-import { ExtractSourceKeys, ExtractSources, ExtractDestinationKeys, ExtractDestinations, Profile } from '@/types/profile'
+import { ExtractSourceKeys, ExtractSources, ExtractDestinationKeys, ExtractDestinations, Profile, GenericProfile } from '@/types/profile'
 
 export type Mapper<T extends Profile> = {
   map: <
@@ -14,3 +14,18 @@ export type Mapper<T extends Profile> = {
     TDestination extends ExtractDestinations<T, TSourceKey, TDestinationKey>
   > (sourceKey: TSourceKey, sourceArray: TSource[], destinationKey: TDestinationKey) => TDestination[],
 }
+
+export type GenericMapper = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  map: (sourceKey: string, source: any, destinationKey: string) => any,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  mapMany: (sourceKey: string, sourceArray: any[], destinationKey: string) => any[],
+}
+
+export interface Register {
+  // mapper: Mapper
+}
+
+export type RegisteredMapper = Register extends { mapper: infer TMapper }
+  ? TMapper
+  : GenericMapper

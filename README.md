@@ -71,7 +71,7 @@ This library provides a useful method for automatically loading profiles. If you
 ```
 
 ```ts
-import { createMapper, loadProfiles } from '@stackoverfloweth/mapper'
+import { createMapper, loadProfiles } from '@kitbag/mapper'
 import * as maybeProfiles from '@/maps'
 
 const profiles = loadProfiles(maybeProfiles)
