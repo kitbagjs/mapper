@@ -1,5 +1,4 @@
-import { ProfileNotFoundError } from '@/profileNotFoundError'
-import { Mapper, Profile, ProfileKey, RegisteredProfile, RegisteredProfiles } from '@/types'
+import { Mapper, Profile, ProfileKey, RegisteredProfile, RegisteredProfiles, ProfileNotFoundError } from '@/types'
 
 export function createMapper(): Mapper<RegisteredProfiles> {
 

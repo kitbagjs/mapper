@@ -1,8 +1,6 @@
 import { expect, test } from 'vitest'
-import { createMapper } from '@/createMapper'
-import { mapper } from '@/index'
-import { ProfileNotFoundError } from '@/profileNotFoundError'
-import { Profile } from '@/types'
+import mapper from '@/index'
+import { ProfileNotFoundError, Profile } from '@/types'
 
 const stringToBoolean = {
   sourceKey: 'string',
