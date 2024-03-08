@@ -6,7 +6,9 @@ import { Profile } from '@/types'
 const stringToBoolean = {
   sourceKey: 'string',
   destinationKey: 'boolean',
-  map: (source: string): boolean => Boolean(source),
+  map: function(source) {
+    this.map('anything', source, 'else')
+  },
 } as const satisfies Profile
 
 const mapper = createMapper([stringToBoolean])
