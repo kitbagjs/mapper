@@ -1,8 +1,9 @@
+import { AnyFunction } from '@/types'
+import { ProfileTypeError } from '@/types/profileTypeError'
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Imported = Record<PropertyKey, any>
 type MaybeImport = Imported | (() => Imported)
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type AnyFunction = ((...args: any[]) => any)
 type RecordValue<T> = T extends Record<string, infer TValue> ? TValue : never
 
 function toValue(maybeImport: MaybeImport): Imported {
@@ -21,7 +22,7 @@ export function loadProfiles<
   const maybeProfiles = Object.values(value)
 
   if (!maybeProfiles.every(isValidProfile)) {
-    throw 'Every value provided to loadProfiles must implement Profile'
+    throw new ProfileTypeError()
   }
 
   return maybeProfiles

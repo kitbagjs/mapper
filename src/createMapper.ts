@@ -1,12 +1,11 @@
-import { ProfileNotFoundError } from '@/profileNotFoundError'
-import { Mapper, Profile, ProfileKey } from '@/types'
+import { Mapper, Profile, ProfileKey, RegisteredProfile, RegisteredProfiles, ProfileNotFoundError } from '@/types'
 
-export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
+export function createMapper(): Mapper<RegisteredProfiles> {
 
-  const profileMap = buildProfilesMap(profiles)
+  const profileMap = new Map<ProfileKey<RegisteredProfile>, Profile>()
 
-  function getProfile(sourceKey: T['sourceKey'], destinationKey: T['destinationKey']): Profile {
-    const key: ProfileKey<T> = `${sourceKey}-${destinationKey}`
+  function getProfile(sourceKey: RegisteredProfile['sourceKey'], destinationKey: RegisteredProfile['destinationKey']): Profile {
+    const key: ProfileKey<RegisteredProfile> = `${sourceKey}-${destinationKey}`
     const profile = profileMap.get(key)
 
     if (!profile) {
@@ -16,28 +15,29 @@ export function createMapper<T extends Profile>(profiles: T[]): Mapper<T> {
     return profile
   }
 
-  const mapper: Mapper<T> = {
-    map: (sourceKey, source, destinationKey) => {
-      const profile = getProfile(sourceKey, destinationKey)
+  const register: Mapper<RegisteredProfiles>['register'] = (profiles) => {
+    for (const profile of profiles) {
+      profileMap.set(`${profile.sourceKey}-${profile.destinationKey}`, profile)
+    }
+  }
 
-      return profile.map(source)
-    },
-    mapMany: (sourceKey, sourceArray, destinationKey) => {
-      const profile = getProfile(sourceKey, destinationKey)
+  const map: Mapper<RegisteredProfiles>['map'] = (sourceKey, source, destinationKey) => {
+    const profile = getProfile(sourceKey, destinationKey)
 
-      return sourceArray.map(source => profile.map(source))
-    },
+    return profile.map(source)
+  }
+
+  const mapMany: Mapper<RegisteredProfiles>['mapMany'] = (sourceKey, sourceArray, destinationKey) => {
+    const profile = getProfile(sourceKey, destinationKey)
+
+    return sourceArray.map(source => profile.map(source))
+  }
+
+  const mapper: Mapper<RegisteredProfiles> = {
+    register,
+    map,
+    mapMany,
   }
 
   return mapper
-}
-
-function buildProfilesMap<T extends Profile>(profiles: T[]): Map<ProfileKey<T>, Profile> {
-  const map: Map<ProfileKey<T>, Profile> = new Map()
-
-  for (const profile of profiles) {
-    map.set(`${profile.sourceKey}-${profile.destinationKey}`, profile)
-  }
-
-  return map
 }
