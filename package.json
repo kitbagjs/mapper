@@ -1,19 +1,19 @@
 {
   "name": "@kitbag/mapper",
-  "version": "0.0.1",
+  "version": "0.0.3-alpha",
   "description": "A simple and versatile mapping utility for Typescript.",
   "author": "Evan Sutherland",
   "bugs": {
     "url": "https://github.com/kitbagjs/mapper/issues"
   },
   "homepage": "https://github.com/kitbagjs/mapper#readme",
-  "main": "./dist/mapper.umd.cjs",
-  "module": "./dist/mapper.mjs",
+  "main": "./dist/mapper.umd.js",
+  "module": "./dist/mapper.es.js",
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/mapper.mjs",
-      "require": "./dist/mapper.umd.cjs"
+      "import": "./dist/mapper.es.js",
+      "require": "./dist/mapper.umd.js"
     }
   },
   "files": [

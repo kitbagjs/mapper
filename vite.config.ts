@@ -15,8 +15,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'mapper',
-      fileName: 'mapper',
-      formats: ['cjs', 'es', 'iife', 'umd'],
+      fileName: (format) => `mapper.${format}.js`,
     },
   },
   plugins: [dts()],

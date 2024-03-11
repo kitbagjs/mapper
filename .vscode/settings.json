@@ -2,7 +2,7 @@
   "editor.formatOnSave": false,
   "javascript.format.enable": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "cSpell.words": [
     "camelcase",
