@@ -1,4 +1,5 @@
 import { Mapper, Profile, ProfileKey, RegisteredProfile, RegisteredProfiles, ProfileNotFoundError } from '@/types'
+import { asArray } from '@/utilities'
 
 export function createMapper(): Mapper<RegisteredProfiles> {
 
@@ -15,10 +16,26 @@ export function createMapper(): Mapper<RegisteredProfiles> {
     return profile
   }
 
-  const register: Mapper<RegisteredProfiles>['register'] = (profiles) => {
+  const register: Mapper<RegisteredProfiles>['register'] = (maybeProfiles) => {
+    const profiles = asArray(maybeProfiles)
+
     for (const profile of profiles) {
       profileMap.set(`${profile.sourceKey}-${profile.destinationKey}`, profile)
     }
+  }
+
+  const has: Mapper<RegisteredProfiles>['has'] = (sourceKey: string, destinationKey: string) => {
+    try {
+      getProfile(sourceKey, destinationKey)
+
+      return true
+    } catch {
+      return false
+    }
+  }
+
+  const clear: Mapper<RegisteredProfiles>['clear'] = () => {
+    profileMap.clear()
   }
 
   const map: Mapper<RegisteredProfiles>['map'] = (sourceKey, source, destinationKey) => {
@@ -35,6 +52,8 @@ export function createMapper(): Mapper<RegisteredProfiles> {
 
   const mapper: Mapper<RegisteredProfiles> = {
     register,
+    has,
+    clear,
     map,
     mapMany,
   }

@@ -1,5 +1,5 @@
-import { AnyFunction } from '@/types'
 import { ProfileTypeError } from '@/types/profileTypeError'
+import { AnyFunction } from '@/utilities'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Imported = Record<PropertyKey, any>

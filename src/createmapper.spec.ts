@@ -21,3 +21,15 @@ test('mapMany returns the correct value', () => {
 
   expect(value).toMatchObject([true])
 })
+
+test('register works with single profile', () => {
+  const singleProfile = {
+    sourceKey: 'foo',
+    destinationKey: 'bar',
+    map: (source: string): boolean => Boolean(source),
+  } as const satisfies Profile
+
+  mapper.register(singleProfile)
+
+  expect(mapper.has('foo', 'bar')).toBe(true)
+})

@@ -1,7 +1,9 @@
 import { ExtractSourceKeys, ExtractSources, ExtractDestinationKeys, ExtractDestinations, Profile } from '@/types/profile'
 
 export type Mapper<TProfiles extends Readonly<Profile[]>, TProfile = TProfiles[number]> = {
-  register: (profiles: Profile[] | Readonly<Profile[]>) => void,
+  register: (profiles: Profile[] | Readonly<Profile[]> | Profile) => void,
+  clear: () => void,
+  has: (sourceKey: string, destinationKey: string) => boolean,
   map: <
     TSourceKey extends ExtractSourceKeys<TProfile>,
     TSource extends ExtractSources<TProfile, TSourceKey>,
