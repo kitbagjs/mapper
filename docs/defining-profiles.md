@@ -2,7 +2,7 @@
 
 Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique combinations, beyond that the choice is irrelevant to the function of Kitbag Mapper.
 
-Here is a simple example of a profile that converts a python server model you might see in an API service to the frontend model.
+Here is a simple example of a profile that converts a server model you might see in an API service to the frontend model.
 
 ::: code-group
 
