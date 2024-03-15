@@ -2,6 +2,8 @@
 
 A simple and versatile mapping utility for Typescript.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d6033c76-88c3-4963-b24f-7a0bda20f271/deploy-status)](https://app.netlify.com/sites/kitbag-mapper/deploys)
+
 ## Get Started
 
 ```bash
