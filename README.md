@@ -4,7 +4,7 @@
 
 A simple and versatile mapping utility for Typescript.
 
-Get started with the [documentation](https://vitepress-docs--kitbag-mapper.netlify.app/)
+Get started with the [documentation](https://kitbag-mapper.netlify.app/)
 
 ## Get Started
 
