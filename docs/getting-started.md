@@ -42,7 +42,7 @@ Here we have (2) profiles, 1 that is responsible for mapping `number` to `string
 
 ### Register the Profiles
 
-Mapper is exported from `@kitbag/mapper` as a singleton so profiles must be uploaded before they can be used. 
+Mapper is exported from `@kitbag/mapper` as a singleton so profiles must be registered before they can be used. 
 
 ```ts
 import mapper from '@kitbag/mapper'
