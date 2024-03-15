@@ -14,13 +14,7 @@ export const arrayToSet = {
 } as const satisfies Profile
 ```
 
-However, if your goal is use the same mapping profile over an array of sources you can use either
-
-```ts
-const mapped = [123, 456].map((source) => mapper.map('number', source, 'Date'))
-```
-
-or for an even simpler solution, Kitbag Mapper provides `mapMany`, which takes an array of `TSource` and returns an array of `TDestination`.
+However, if your goal is use the same mapping profile over an array of sources you can use `mapMany`.
 
 ```ts
 const mapped = mapper.mapMany('number', [123, 456], 'Date')

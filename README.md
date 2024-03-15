@@ -98,9 +98,9 @@ This library provides a useful method for automatically loading profiles. If you
 
 ```ts
 import mapper, { loadProfiles } from '@kitbag/mapper'
-import * as maybeProfiles from '@/maps'
+import * as profilesToLoad from '@/maps'
 
-const profiles = loadProfiles(maybeProfiles)
+const profiles = loadProfiles(profilesToLoad)
 
 mapper.register(profiles)
 ```
