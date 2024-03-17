@@ -11,7 +11,7 @@ const profiles = [
 ]
 ```
 
-or as static objects
+or using the `Profile` type
 
 ```ts
 export const profiles = [
