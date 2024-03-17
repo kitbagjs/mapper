@@ -22,9 +22,14 @@ npm install @kitbag/mapper
 ```ts
 import mapper from '@kitbag/mapper'
 
+const profiles = [
+  createProfile('number', 'string', (source: number): boolean => source.toString())
+  createProfile('number', 'Date', (source: number): Date =>new Date(source))
+]
+
 mapper.register(profiles)
 
-mapper.map('source-key', source, 'destination-key')
+const dateValue = mapper.map('number', 123, 'Date') // Wed Dec 31 1969...
 ```
 
 Kitbag Mapper relies an an underlying set of `Profile` objects to define what types are supported and how to map between them. To add profiles to Kitbag Mapper, use `register`.
@@ -45,24 +50,55 @@ declare module '@kitbag/mapper' {
 
 Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique, beyond that the choice is irrelevant to the function of Kitbag Mapper.
 
-Here are a couple simple examples of `Profile` objects
+Profiles can be created with the `createProfile` function, which takes 3 arguments
+
+| Argument  | Type |
+| ------------- | ------------- |
+| SourceKey  | `string`  |
+| DestinationKey  | `string`  |
+| MapFunction  | `(source: TSource) => TDestination`  |
 
 ```ts
-export const numberToString = {
+import { createProfile } from '@kitbag/mapper'
+
+createProfile('number', 'string', (source: number): boolean => source.toString())
+```
+
+Alternatively, you can define profiles directly by using the `Profile` type. 
+
+```ts
+import { Profile } from '@kitbag/mapper'
+
+const numberToString = {
   sourceKey: 'number',
   destinationKey: 'string',
   map: (source: number): string => {
     return source.toString()
   },
-} as const satisfies Profile
+} as const satisfies Profile,
+```
 
-export const numberToDate = {
-  sourceKey: 'number',
-  destinationKey: 'Date',
-  map: (source: number): Date => {
-    return new Date(source)
+or together in an array
+
+```ts
+import { Profile } from '@kitbag/mapper'
+
+export const profiles = [
+  {
+    sourceKey: 'number',
+    destinationKey: 'string',
+    map: (source: number): string => {
+      return source.toString()
+    },
   },
-} as const satisfies Profile
+  {
+    sourceKey: 'number',
+    destinationKey: 'Date',
+    map: (source: number): Date => {
+      return new Date(source)
+    },
+  }
+] as const satisfies Profile[]
 ```
 
 Note the [satisfies operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) requires Typescript v4.9+.

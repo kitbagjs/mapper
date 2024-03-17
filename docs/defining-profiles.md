@@ -2,6 +2,36 @@
 
 Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique combinations, beyond that the choice is irrelevant to the function of Kitbag Mapper.
 
+Profiles can be defined with `createProfile` utility 
+
+```ts
+const profiles = [
+  createProfile('number', 'string', (source: number): string => source.toString()),
+  createProfile('number', 'Date', (source: number): Date => new Date(source)),
+]
+```
+
+or using the `Profile` type
+
+```ts
+export const profiles = [
+  {
+    sourceKey: 'number',
+    destinationKey: 'string',
+    map: (source: number): string => {
+      return source.toString()
+    },
+  },
+  {
+    sourceKey: 'number',
+    destinationKey: 'Date',
+    map: (source: number): Date => {
+      return new Date(source)
+    },
+  },
+] as const satisfies Profile[]
+```
+
 Here is a simple example of a profile that converts a server model you might see in an API service to the frontend model.
 
 ::: code-group

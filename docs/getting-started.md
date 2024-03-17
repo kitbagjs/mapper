@@ -21,21 +21,9 @@ We will cover profiles in greater depth soon, for now let's just write some simp
 import type { Profile } from '@kitbag/mapper'
 
 const profiles = [
-  {
-    sourceKey: 'number',
-    destinationKey: 'string',
-    map: (source: number): string => {
-      return source.toString()
-    },
-  }, 
-  {
-    sourceKey: 'number',
-    destinationKey: 'Date',
-    map: (source: number): Date => {
-      return new Date(source)
-    },
-  }
-] as const satisfies Profile[]
+  createProfile('number', 'string', (source: number): string => source.toString()),
+  createProfile('number', 'Date', (source: number): Date => new Date(source)),
+]
 ```
 
 Here we have (2) profiles, 1 that is responsible for mapping `number` to `string` and another for mapping `number` to a `Date` instance.
