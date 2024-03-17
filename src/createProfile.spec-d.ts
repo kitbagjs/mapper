@@ -10,5 +10,5 @@ test('types always map correctly', () => {
 
   const profile = createProfile(sourceKey, destinationKey, map)
 
-  expectTypeOf(profile).toEqualTypeOf<Profile<SourceKey, undefined, DestinationKey, string>>()
+  expectTypeOf(profile).toEqualTypeOf<Profile<SourceKey, undefined, DestinationKey, boolean>>()
 })
