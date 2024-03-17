@@ -1,6 +1,10 @@
 # @kitbag/mapper
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d6033c76-88c3-4963-b24f-7a0bda20f271/deploy-status)](https://app.netlify.com/sites/kitbag-mapper/deploys)
+
 A simple and versatile mapping utility for Typescript.
+
+Get started with the [documentation](https://kitbag-mapper.netlify.app/)
 
 ## Get Started
 
@@ -23,11 +27,11 @@ mapper.register(profiles)
 mapper.map('source-key', source, 'destination-key')
 ```
 
-The mapper relies an an underlying set of `Profile` objects to define what types are supported and how to map between them. To add profiles to the mapper, use `register`.
+Kitbag Mapper relies an an underlying set of `Profile` objects to define what types are supported and how to map between them. To add profiles to Kitbag Mapper, use `register`.
 
 ### Type Safety
 
-In order to have type safety when using the router, you must register your profiles within the `Register` interface under the namespace `@kitbag/mapper`.
+In order to have type safety when using Kitbag Mapper, you must register your profiles within the `Register` interface under the namespace `@kitbag/mapper`.
 
 ```ts
 declare module '@kitbag/mapper' {
@@ -39,7 +43,7 @@ declare module '@kitbag/mapper' {
 
 ## Profiles
 
-Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique, beyond that the choice is irrelevant to the function of the mapper.
+Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique, beyond that the choice is irrelevant to the function of Kitbag Mapper.
 
 Here are a couple simple examples of `Profile` objects
 
@@ -63,7 +67,7 @@ export const numberToDate = {
 
 Note the [satisfies operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) requires Typescript v4.9+.
 
-Assuming you declared your own `Register` interface from [Type Safety](#type-safety). The mapper will use the keys you define to provide type safety when calling map.
+Assuming you declared your own `Register` interface from [Type Safety](#type-safety). Kitbag Mapper will use the keys you define to provide type safety when calling map.
 
 ```ts
 mapper.map('number', 123, 'string') // "123"
@@ -81,7 +85,6 @@ This library provides a useful method for automatically loading profiles. If you
 
 ```text
 └── src
-   ├── models
    └── maps
       ├── foo.ts
       ├── bar.ts
@@ -95,9 +98,9 @@ This library provides a useful method for automatically loading profiles. If you
 
 ```ts
 import mapper, { loadProfiles } from '@kitbag/mapper'
-import * as maybeProfiles from '@/maps'
+import * as profilesToLoad from '@/maps'
 
-const profiles = loadProfiles(maybeProfiles)
+const profiles = loadProfiles(profilesToLoad)
 
 mapper.register(profiles)
 ```
@@ -111,10 +114,10 @@ With most use cases involving an import that is not type safe, it's not unreason
 Because `TSource` and `TDestination` are not constrained, you can always define a profile that expects an array.
 
 ```ts
-export const numbersArrayToNumbersSet = {
+export const arrayToSet = {
   sourceKey: 'array',
   destinationKey: 'Set',
-  map<T>: (source: T[]): Set<T> => {
+  map: function <T>(source: T[]): Set<T> {
     return new Set<T>(source)
   },
 } as const satisfies Profile
@@ -126,7 +129,7 @@ However, if your goal is use the same mapping profile over an array of sources y
 const mapped = sources.map(source => mapper.map('source-key', source, 'destination-key'))
 ```
 
-or the mapper provides a simpler method `mapMany`, which takes an array of `TSource` and returns an array `TDestination`.
+or Kitbag Mapper provides a simpler method `mapMany`, which takes an array of `TSource` and returns an array `TDestination`.
 
 ```ts
 const mapped = mapper.mapMany('source-key', sources, 'destination-key')
@@ -178,7 +181,7 @@ export type ItemResponse = {
 }
 ```
 
-There are a couple opportunities to use the mapper from within the order profile. Both the `ObjectId` from mongodb and `Item` mapping logic is likely already encapsulated by another profile. The same `mapper` can be imported and used within a Profile.
+There are a couple opportunities to use Kitbag Mapper from within the order profile. Both the `ObjectId` from mongodb and `Item` mapping logic is likely already encapsulated by another profile. The same `mapper` can be imported and used within a Profile.
 
 ```ts
 export const orderResponseToOrder = {
@@ -198,7 +201,7 @@ export const orderResponseToOrder = {
 
 ### Profile name
 
-What you chose to name the profile doesn't matter to the mapper. In these examples I used the pattern `${sourceKey}To${destinationKey}` but this key is not currently used by `loadProfiles()` in any way.
+What you chose to name the profile doesn't matter to Kitbag Mapper. In these examples we used the pattern `${sourceKey}To${destinationKey}` but this key is not currently used by `loadProfiles()` in any way.
 
 ### Missing types or source type `never`
 
