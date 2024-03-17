@@ -1,4 +1,5 @@
-import { AnyFunction, Profile } from '@/types'
+import { Profile } from '@/types'
+import { AnyFunction } from '@/utilities'
 
 export function createProfile<
   TSourceKey extends string,
