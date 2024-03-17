@@ -19,13 +19,13 @@ export function loadProfiles<
   TReturns = TImported extends AnyFunction ? RecordValue<ReturnType<TImported>> : RecordValue<TImported>
 >(load: TImported): TReturns[] {
   const value = toValue(load)
-  const maybeProfiles = Object.values(value)
+  const profilesToLoad = Object.values(value)
 
-  if (!maybeProfiles.every(isValidProfile)) {
+  if (!profilesToLoad.every(isValidProfile)) {
     throw new ProfileTypeError()
   }
 
-  return maybeProfiles
+  return profilesToLoad
 }
 
 function isValidProfile(value: unknown): boolean {
