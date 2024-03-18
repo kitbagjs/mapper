@@ -5,6 +5,8 @@ Each profile defines a value for `sourceKey` and `destinationKey`. These keys mu
 Profiles can be defined with `createProfile` utility 
 
 ```ts
+import { createProfile } from '@kitbag/mapper'
+
 const profiles = [
   createProfile('number', 'string', (source: number): string => source.toString()),
   createProfile('number', 'Date', (source: number): Date => new Date(source)),
@@ -14,6 +16,8 @@ const profiles = [
 or using the `Profile` type
 
 ```ts
+import { Profiles } from '@kitbag/mapper'
+
 export const profiles = [
   {
     sourceKey: 'number',
@@ -29,7 +33,7 @@ export const profiles = [
       return new Date(source)
     },
   },
-] as const satisfies Readonly<Profile[]>
+] as const satisfies Profiles
 ```
 
 Here is a simple example of a profile that converts a server model you might see in an API service to the frontend model.

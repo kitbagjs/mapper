@@ -1,4 +1,4 @@
-import { Profile } from '@/types'
+import { Profiles } from '@/types'
 
 export const stringProfiles = [
   {
@@ -15,4 +15,4 @@ export const stringProfiles = [
       return new Date(source)
     },
   },
-] as const satisfies Readonly<Profile[]>
+] as const satisfies Profiles

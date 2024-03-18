@@ -18,3 +18,5 @@ export type ExtractDestinationKeys<TProfile, TSourceKey extends ExtractSourceKey
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractDestinations<TProfile, TSourceKey extends ExtractSourceKeys<TProfile>, TDestinationKey extends ExtractDestinationKeys<TProfile, TSourceKey>> = TProfile extends Profile<TSourceKey, any, TDestinationKey, infer TDestination> ? TDestination : never
+
+export type Profiles = Readonly<Profile[]>

@@ -81,7 +81,7 @@ const numberToString = {
 or together in an array
 
 ```ts
-import { Profile } from '@kitbag/mapper'
+import { Profiles } from '@kitbag/mapper'
 
 export const profiles = [
   {
@@ -98,7 +98,7 @@ export const profiles = [
       return new Date(source)
     },
   }
-] as const satisfies Readonly<Profile[]>
+] as const satisfies Profiles
 ```
 
 Note the [satisfies operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) requires Typescript v4.9+.

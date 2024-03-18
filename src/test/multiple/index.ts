@@ -1,4 +1,4 @@
-import { Profile } from '@/types'
+import { Profiles } from '@/types'
 
 export * from './numberProfiles'
 export * from './stringProfiles'
@@ -11,4 +11,4 @@ export const indexProfiles = [
       return source.toString()
     },
   },
-] as const satisfies Readonly<Profile[]>
+] as const satisfies Profiles
