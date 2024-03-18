@@ -1,5 +1,5 @@
 import { ProfileTypeError } from '@/types/profileTypeError'
-import { AnyFunction } from '@/utilities'
+import { AnyFunction, flatten } from '@/utilities'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Imported = Record<PropertyKey, any>
@@ -19,7 +19,7 @@ export function loadProfiles<
   TReturns = TImported extends AnyFunction ? RecordValue<ReturnType<TImported>> : RecordValue<TImported>
 >(load: TImported): TReturns[] {
   const value = toValue(load)
-  const profilesToLoad = Object.values(value)
+  const profilesToLoad = flatten(Object.values(value))
 
   if (!profilesToLoad.every(isValidProfile)) {
     throw new ProfileTypeError()
