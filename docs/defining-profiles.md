@@ -29,7 +29,7 @@ export const profiles = [
       return new Date(source)
     },
   },
-] as const satisfies Profile[]
+] as const satisfies Readonly<Profile[]>
 ```
 
 Here is a simple example of a profile that converts a server model you might see in an API service to the frontend model.

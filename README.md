@@ -98,7 +98,7 @@ export const profiles = [
       return new Date(source)
     },
   }
-] as const satisfies Profile[]
+] as const satisfies Readonly<Profile[]>
 ```
 
 Note the [satisfies operator](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html#the-satisfies-operator) requires Typescript v4.9+.
