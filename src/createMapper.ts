@@ -1,4 +1,5 @@
 import { Mapper, Profile, ProfileKey, RegisteredProfile, RegisteredProfiles, ProfileNotFoundError } from '@/types'
+import { ProfileMappingError } from '@/types/profileMappingError'
 import { asArray } from '@/utilities'
 
 export function createMapper(): Mapper<RegisteredProfiles> {
@@ -41,7 +42,11 @@ export function createMapper(): Mapper<RegisteredProfiles> {
   const map: Mapper<RegisteredProfiles>['map'] = (sourceKey, source, destinationKey) => {
     const profile = getProfile(sourceKey, destinationKey)
 
-    return profile.map(source)
+    try {
+      return profile.map(source)
+    } catch (exception) {
+      throw new ProfileMappingError(profile, { cause: exception })
+    }
   }
 
   const mapMany: Mapper<RegisteredProfiles>['mapMany'] = (sourceKey, sourceArray, destinationKey) => {
