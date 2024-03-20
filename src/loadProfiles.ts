@@ -4,7 +4,9 @@ import { AnyFunction, flatten } from '@/utilities'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Imported = Record<PropertyKey, any>
 type MaybeImport = Imported | (() => Imported)
-type RecordValue<T> = T extends Record<string, infer TValue> ? TValue : never
+type RecordValue<T> = T extends Record<PropertyKey, infer TValue> ? TValue : T
+type UnArray<T> = T extends readonly (infer TValue)[] ? UnArray<TValue> : T
+type ImportValue<T> = UnArray<RecordValue<T>>
 
 function toValue(maybeImport: MaybeImport): Imported {
   if (typeof maybeImport === 'function') {
@@ -16,7 +18,7 @@ function toValue(maybeImport: MaybeImport): Imported {
 
 export function loadProfiles<
   TImported extends MaybeImport,
-  TReturns = TImported extends AnyFunction ? RecordValue<ReturnType<TImported>> : RecordValue<TImported>
+  TReturns = TImported extends AnyFunction ? ImportValue<ReturnType<TImported>> : ImportValue<TImported>
 >(load: TImported): TReturns[] {
   const value = toValue(load)
   const profilesToLoad = flatten(Object.values(value))
