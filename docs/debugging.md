@@ -14,6 +14,10 @@ Anytime `loadProfiles` is called with an import that includes anything that does
 - Make sure your only exporting profiles from within map files
 - Make sure each profile uses `as const satisfies Profile`
 
+## ProfileMappingError
+
+When the mapper is executing `map` function on a given profile, it wraps the call in a try catch. If that function throws an exception for any reason it is wrapped in a `ProfileMappingError`. This provides additional context to the end application where an error is taking place and inside of which specific profile to investigate.
+
 ## Missing types or source type never
 
 If you hover `mapper.map` and see
