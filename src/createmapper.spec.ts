@@ -1,6 +1,7 @@
 import { expect, test } from 'vitest'
 import mapper from '@/index'
 import { Profile } from '@/types'
+import { ProfileMappingError } from '@/types/profileMappingError'
 
 const stringToBoolean = {
   sourceKey: 'string',
@@ -32,4 +33,20 @@ test('register works with single profile', () => {
   mapper.register(singleProfile)
 
   expect(mapper.has('foo', 'bar')).toBe(true)
+})
+
+test('when map function throws exception, wraps in ProfileMappingError', () => {
+  const singleProfile = {
+    sourceKey: 'foo',
+    destinationKey: 'bar',
+    map: () => {
+      throw 'not implemented'
+    },
+  } as const satisfies Profile
+
+  mapper.register(singleProfile)
+
+  const action: () => void = () => mapper.map('foo', null, 'bar')
+
+  expect(action).toThrow(ProfileMappingError)
 })
