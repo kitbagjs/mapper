@@ -1,6 +1,6 @@
 {
   "name": "@kitbag/mapper",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "A simple and versatile mapping utility for Typescript.",
   "author": "Evan Sutherland",
   "bugs": {
