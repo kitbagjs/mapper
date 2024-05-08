@@ -2,7 +2,7 @@
 
 A simple and versatile mapping utility for Typescript.
 
-[![Npm Version](https://img.shields.io/npm/v/@kitbag/mapper.svg)](https://www.npmjs.org/package/kitbag/mapper)
+[![Npm Version](https://img.shields.io/npm/v/@kitbag/mapper.svg)](https://www.npmjs.org/package/@kitbag/mapper)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f003aad4-3c51-4830-bb77-8f8fd3b67b58/deploy-status)](https://app.netlify.com/sites/kitbag-mapper/deploys)
 
 Get started with the [documentation](https://kitbag-mapper.netlify.app/)
