@@ -2,12 +2,15 @@
 
 A simple and versatile mapping utility for Typescript.
 
-[![Npm Version](https://img.shields.io/npm/v/@kitbag/mapper.svg)](https://www.npmjs.org/package/@kitbag/mapper)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/f003aad4-3c51-4830-bb77-8f8fd3b67b58/deploy-status)](https://app.netlify.com/sites/kitbag-mapper/deploys)
+[![NPM Version][npm-badge]][npm-url]
+[![Netlify Status][netlify-badge]][netlify-url]
+[![Discord chat][discord-badge]][discord-url]
+
+## Getting Started
 
 Get started with the [documentation](https://kitbag-mapper.netlify.app/)
 
-## Get Started
+## Installation
 
 ```bash
 # bun
@@ -255,3 +258,10 @@ export const numberToString = {
   },
 } as const satisfies Profile
 ```
+
+[npm-badge]: https://img.shields.io/npm/v/@kitbag/mapper.svg
+[npm-url]: https://www.npmjs.org/package/@kitbag/mapper
+[netlify-badge]: https://api.netlify.com/api/v1/badges/f003aad4-3c51-4830-bb77-8f8fd3b67b58/deploy-status
+[netlify-url]: https://app.netlify.com/sites/kitbag-mapper/deploys
+[discord-badge]: https://img.shields.io/discord/1079625926024900739?logo=discord&label=Discord
+[discord-url]: https://discord.gg/UT7JrAxU
