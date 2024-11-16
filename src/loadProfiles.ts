@@ -32,7 +32,7 @@ export function loadProfiles<
 
 function isValidProfile(value: unknown): boolean {
   return !!value && typeof value === 'object'
-   && 'sourceKey' in value && typeof value.sourceKey === 'string'
-   && 'destinationKey' in value && typeof value.destinationKey === 'string'
-   && 'map' in value && typeof value.map === 'function'
+    && 'sourceKey' in value && typeof value.sourceKey === 'string'
+    && 'destinationKey' in value && typeof value.destinationKey === 'string'
+    && 'map' in value && typeof value.map === 'function'
 }
