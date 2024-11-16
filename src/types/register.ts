@@ -4,7 +4,7 @@ export interface Register {
   // profiles: Profile[]
 }
 
-export type RegisteredProfiles = Register extends { profiles: infer TProfiles extends Readonly<Profile[]> }
+export type RegisteredProfiles = Register extends { profiles: infer TProfiles extends readonly Profile[] }
   ? TProfiles
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   : any

@@ -3,7 +3,6 @@ import { ProfileMappingError } from '@/types/profileMappingError'
 import { asArray } from '@/utilities'
 
 export function createMapper(): Mapper<RegisteredProfiles> {
-
   const profileMap = new Map<ProfileKey<RegisteredProfile>, Profile>()
 
   function getProfile(sourceKey: RegisteredProfile['sourceKey'], destinationKey: RegisteredProfile['destinationKey']): Profile {
@@ -52,7 +51,7 @@ export function createMapper(): Mapper<RegisteredProfiles> {
   const mapMany: Mapper<RegisteredProfiles>['mapMany'] = (sourceKey, sourceArray, destinationKey) => {
     const profile = getProfile(sourceKey, destinationKey)
 
-    return sourceArray.map(source => profile.map(source))
+    return sourceArray.map((source) => profile.map(source))
   }
 
   const mapper: Mapper<RegisteredProfiles> = {

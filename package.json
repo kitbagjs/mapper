@@ -1,8 +1,8 @@
 {
   "name": "@kitbag/mapper",
+  "private": false,
   "version": "0.0.6",
   "description": "A simple and versatile mapping utility for Typescript.",
-  "author": "Evan Sutherland",
   "bugs": {
     "url": "https://github.com/kitbagjs/mapper/issues"
   },
@@ -16,6 +16,7 @@
       "require": "./dist/mapper.umd.cjs"
     }
   },
+  "type": "module",
   "files": [
     "dist"
   ],
@@ -24,6 +25,7 @@
     "build:watch": "tsc && vite build --watch",
     "dev": "vite",
     "lint": "eslint ./src",
+    "lint:fix": "eslint ./src --fix",
     "test": "vitest",
     "test:types": "vitest --typecheck",
     "types": "tsc --noEmit",
@@ -32,9 +34,9 @@
     "docs:preview": "vitepress preview docs"
   },
   "devDependencies": {
-    "@prefecthq/eslint-config": "1.0.31",
+    "@kitbag/eslint-config": "1.0.1",
     "@types/node": "^20.8.6",
-    "eslint": "^8.49.0",
+    "eslint": "9.14.0",
     "typescript": "^5.0.2",
     "vite": "^4.4.8",
     "vite-plugin-dts": "^3.6.0",

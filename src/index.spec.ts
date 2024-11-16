@@ -22,7 +22,9 @@ test('when types are provided via register interface, gets enforced when calling
   const error = new ProfileNotFoundError('x', 'x')
 
   // if Register is not commented out >> @ts-expect-error 'x' is not registered SourceKey
-  const action: () => void = () => mapper.map('x', 'x', 'x')
+  const action: () => void = () => {
+    mapper.map('x', 'x', 'x')
+  }
 
   expect(action).toThrow(error)
 })

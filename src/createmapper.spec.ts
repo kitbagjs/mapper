@@ -40,13 +40,15 @@ test('when map function throws exception, wraps in ProfileMappingError', () => {
     sourceKey: 'foo',
     destinationKey: 'bar',
     map: () => {
-      throw 'not implemented'
+      throw new Error('not implemented')
     },
   } as const satisfies Profile
 
   mapper.register(singleProfile)
 
-  const action: () => void = () => mapper.map('foo', null, 'bar')
+  const action: () => void = () => {
+    mapper.map('foo', null, 'bar')
+  }
 
   expect(action).toThrow(ProfileMappingError)
 })
