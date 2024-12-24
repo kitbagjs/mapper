@@ -8,11 +8,15 @@ export default defineConfig({
   themeConfig: {
     logo: '/kitbag-logo-circle.svg',
     siteTitle: 'Kitbag Mapper',
+
+    editLink: {
+      pattern: 'https://github.com/kitbagjs/mapper/edit/main/docs/:path',
+      text: 'Suggest changes to this page',
+    },
     
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Guide', link: '/defining-profiles' },
-      { text: 'API', link: '/api' }
+      // { text: 'API', link: '/api' }
     ],
 
     sidebar: {
@@ -88,7 +92,7 @@ export default defineConfig({
       },
       { icon: 'github', link: 'https://github.com/kitbagjs/mapper' },
       { icon: 'discord', link: 'https://discord.gg/zw7dpcc5HV' },
-      { icon: 'npm', link: 'https://www.npmjs.com/package/@kitbag/router' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/@kitbag/mapper' },
     ]
   }
 })
