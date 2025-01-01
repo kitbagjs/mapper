@@ -2,7 +2,7 @@
 
 Each profile defines a value for `sourceKey` and `destinationKey`. These keys must extend `string` and should be unique combinations, beyond that the choice is irrelevant to the function of Kitbag Mapper.
 
-Profiles can be defined with `createProfile` utility 
+Profiles can be defined with `createProfile` utility
 
 ```ts
 import { createProfile } from '@kitbag/mapper'
