@@ -30,7 +30,7 @@ export default defineConfig({
       ],
       '/': [
         {
-          text: 'Introduction',
+          text: 'Getting Started',
           items: [
             {
               text: 'Introduction',
