@@ -68,7 +68,7 @@ import { createProfile } from '@kitbag/mapper'
 createProfile('number', 'string', (source: number): boolean => source.toString())
 ```
 
-Alternatively, you can define profiles directly by using the `Profile` type. 
+Alternatively, you can define profiles directly by using the `Profile` type.
 
 ```ts
 import { Profile } from '@kitbag/mapper'

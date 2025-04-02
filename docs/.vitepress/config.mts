@@ -37,7 +37,7 @@ export default defineConfig({
               link: '/introduction',
             },
             {
-              text: 'Getting Started',
+              text: 'Quick Start',
               link: '/getting-started',
             },
           ],
