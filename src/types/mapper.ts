@@ -1,8 +1,7 @@
 import { ExtractSourceKeys, Profile } from '@/types/profile'
 
 /**
- * Registered profiles grouped once by source key, then destination key, so each `map` call is two
- * property lookups rather than a fresh pass over every registered profile.
+ * Type-level index of profiles by source and destination key, reused when checking mapping calls.
  */
 type ProfileIndex<TProfile> = {
   [TSourceKey in ExtractSourceKeys<TProfile>]: {
@@ -10,11 +9,14 @@ type ProfileIndex<TProfile> = {
   }
 }
 
-/** Extracts the source type from a profile. `unknown` for the destination parameter matches any profile regardless of its destination type. */
-type ProfileSource<TProfile> = TProfile extends Profile<string, infer TSource, string, unknown> ? TSource : never
+// A broad source key can collapse index entries together. Check the selected source key
+// before extracting types so unrelated profiles cannot become valid matches.
 
-/** Extracts the destination type from a profile. `never` for the source parameter exploits contravariance — any concrete source type satisfies `never extends TSource` in the function position, so the match is unconditional. */
-type ProfileDestination<TProfile> = TProfile extends Profile<string, never, string, infer TDestination> ? TDestination : never
+/** Extracts the source type from a profile. `unknown` for the destination parameter matches any profile regardless of its destination type. */
+type ProfileSource<TProfile, TSourceKey extends string> = TProfile extends Profile<TSourceKey, infer TSource, string, unknown> ? TSource : never
+
+/** Extracts the destination type from a profile. `never` for the source parameter exploits contravariance — any concrete source type satisfies `never extends TSource` in the function position, so the source type does not restrict the match. */
+type ProfileDestination<TProfile, TSourceKey extends string> = TProfile extends Profile<TSourceKey, never, string, infer TDestination> ? TDestination : never
 
 export type Mapper<TProfiles extends readonly Profile[], TProfile = TProfiles[number]> = {
   register: (profiles: Profile[] | readonly Profile[] | Profile) => void,
@@ -23,9 +25,9 @@ export type Mapper<TProfiles extends readonly Profile[], TProfile = TProfiles[nu
   map: <
     TSourceKey extends keyof ProfileIndex<TProfile> & string,
     TDestinationKey extends keyof ProfileIndex<TProfile>[TSourceKey] & string
-  > (sourceKey: TSourceKey, source: ProfileSource<ProfileIndex<TProfile>[TSourceKey][TDestinationKey]>, destinationKey: TDestinationKey) => ProfileDestination<ProfileIndex<TProfile>[TSourceKey][TDestinationKey]>,
+  > (sourceKey: TSourceKey, source: ProfileSource<ProfileIndex<TProfile>[TSourceKey][TDestinationKey], TSourceKey>, destinationKey: TDestinationKey) => ProfileDestination<ProfileIndex<TProfile>[TSourceKey][TDestinationKey], TSourceKey>,
   mapMany: <
     TSourceKey extends keyof ProfileIndex<TProfile> & string,
     TDestinationKey extends keyof ProfileIndex<TProfile>[TSourceKey] & string
-  > (sourceKey: TSourceKey, sourceArray: ProfileSource<ProfileIndex<TProfile>[TSourceKey][TDestinationKey]>[], destinationKey: TDestinationKey) => ProfileDestination<ProfileIndex<TProfile>[TSourceKey][TDestinationKey]>[],
+  > (sourceKey: TSourceKey, sourceArray: ProfileSource<ProfileIndex<TProfile>[TSourceKey][TDestinationKey], TSourceKey>[], destinationKey: TDestinationKey) => ProfileDestination<ProfileIndex<TProfile>[TSourceKey][TDestinationKey], TSourceKey>[],
 }
