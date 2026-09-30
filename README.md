@@ -24,10 +24,10 @@ npm install @kitbag/mapper
 ## Basic Setup
 
 ```ts
-import mapper from '@kitbag/mapper'
+import mapper, { createProfile } from '@kitbag/mapper'
 
 const profiles = [
-  createProfile('number', 'string', (source: number): boolean => source.toString())
+  createProfile('number', 'string', (source: number): string => source.toString()),
   createProfile('number', 'Date', (source: number): Date =>new Date(source))
 ]
 
