@@ -1,7 +1,7 @@
 {
   "name": "@kitbag/mapper",
   "private": false,
-  "version": "0.0.6",
+  "version": "0.1.0",
   "description": "A simple and versatile mapping utility for Typescript.",
   "bugs": {
     "url": "https://github.com/kitbagjs/mapper/issues"
@@ -12,6 +12,7 @@
   "types": "./dist/src/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/mapper.mjs",
       "require": "./dist/mapper.umd.cjs"
     }

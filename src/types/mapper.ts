@@ -10,8 +10,10 @@ type ProfileIndex<TProfile> = {
   }
 }
 
+/** Extracts the source type from a profile. `unknown` for the destination parameter matches any profile regardless of its destination type. */
 type ProfileSource<TProfile> = TProfile extends Profile<string, infer TSource, string, unknown> ? TSource : never
 
+/** Extracts the destination type from a profile. `never` for the source parameter exploits contravariance — any concrete source type satisfies `never extends TSource` in the function position, so the match is unconditional. */
 type ProfileDestination<TProfile> = TProfile extends Profile<string, never, string, infer TDestination> ? TDestination : never
 
 export type Mapper<TProfiles extends readonly Profile[], TProfile = TProfiles[number]> = {
