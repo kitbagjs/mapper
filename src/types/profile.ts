@@ -10,5 +10,4 @@ export type ProfileKey<T extends Profile> = `${T['sourceKey']}-${T['destinationK
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractSourceKeys<TProfile> = TProfile extends Profile<infer TSourceKey, any, any> ? TSourceKey : never
 
-
 export type Profiles = readonly Profile[]
